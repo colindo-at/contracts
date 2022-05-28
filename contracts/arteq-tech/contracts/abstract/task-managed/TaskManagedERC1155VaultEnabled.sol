@@ -18,22 +18,34 @@
 
 pragma solidity 0.8.1;
 
-import "./arteq-tech/contracts/TaskManager.sol";
+import "../ERC1155Vault.sol";
+import "./TaskExecutor.sol";
 
+/// @author Kam Amini <kam@arteq.io>
+///
 /// @notice Use at your own risk
-contract QlindoTaskManager is TaskManager {
+abstract contract TaskManagedERC1155VaultEnabled is TaskExecutor, ERC1155Vault {
 
-    constructor(
-        address[] memory initialAdmins,
-        address[] memory initialCreators,
-        address[] memory initialApprovers,
-        address[] memory initialExecutors,
-        bool enableDeposit
-    ) TaskManager(
-        initialAdmins,
-        initialCreators,
-        initialApprovers,
-        initialExecutors,
-        enableDeposit
-    ) {}
+    function ERC1155Transfer(
+        uint256 taskId,
+        address tokenContract,
+        address to,
+        uint256 tokenId,
+        uint256 amount
+    ) external
+      tryExecuteTaskAfterwards(taskId)
+    {
+        _ERC1155Transfer(tokenContract, to, tokenId, amount);
+    }
+
+    function ERC1155SetApprovalForAll(
+        uint256 taskId,
+        address tokenContract,
+        address operator,
+        bool approved
+    ) external
+      tryExecuteTaskAfterwards(taskId)
+    {
+        _ERC1155SetApprovalForAll(tokenContract, operator, approved);
+    }
 }

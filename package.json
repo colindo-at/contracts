@@ -6,7 +6,6 @@
   "author": "Kam Amini <kam@arteq.io> <kam.cpp@gmail.com>",
   "license": "GPLv3",
   "devDependencies": {
-    "@arteq-tech/contracts": "0.0.5",
     "@nomiclabs/hardhat-ethers": "2.0.5",
     "@nomiclabs/hardhat-waffle": "2.0.3",
     "@openzeppelin/contracts": "4.5.0",
@@ -14,8 +13,6 @@
     "ethereum-waffle": "3.4.0",
     "ethers": "5.5.4",
     "hardhat": "2.9.1",
-    "install": "^0.13.0",
-    "npm": "^8.9.0",
-    "solidity-coverage": "^0.7.21"
+    "solidity-coverage": "0.7.21"
   }
 }

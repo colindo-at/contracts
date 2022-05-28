@@ -18,22 +18,35 @@
 
 pragma solidity 0.8.1;
 
-import "./arteq-tech/contracts/TaskManager.sol";
+import "../ETHVault.sol";
+import "./TaskExecutor.sol";
 
+/// @author Kam Amini <kam@arteq.io>
+///
 /// @notice Use at your own risk
-contract QlindoTaskManager is TaskManager {
+abstract contract TaskManagedETHVaultEnabled is TaskExecutor, ETHVault {
 
-    constructor(
-        address[] memory initialAdmins,
-        address[] memory initialCreators,
-        address[] memory initialApprovers,
-        address[] memory initialExecutors,
+    function isDepositEnabled() external view returns (bool) {
+        return _isDepositEnabled();
+    }
+
+    function setEnableDeposit(
+        uint256 taskId,
         bool enableDeposit
-    ) TaskManager(
-        initialAdmins,
-        initialCreators,
-        initialApprovers,
-        initialExecutors,
-        enableDeposit
-    ) {}
+    ) external
+      tryExecuteTaskAfterwards(taskId)
+    {
+        require(_isDepositEnabled() != enableDeposit, "TaskManagedETHVaultEnabled: cannot set the same value");
+        _setEnableDeposit(enableDeposit);
+    }
+
+    function ETHTransfer(
+        uint256 taskId,
+        address to,
+        uint256 amount
+    ) external
+      tryExecuteTaskAfterwards(taskId)
+    {
+        _ETHTransfer(to, amount);
+    }
 }

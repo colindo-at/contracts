@@ -18,22 +18,33 @@
 
 pragma solidity 0.8.1;
 
-import "./arteq-tech/contracts/TaskManager.sol";
+import "../ERC20Vault.sol";
+import "./TaskExecutor.sol";
 
+/// @author Kam Amini <kam@arteq.io>
+///
 /// @notice Use at your own risk
-contract QlindoTaskManager is TaskManager {
+abstract contract TaskManagedERC20VaultEnabled is TaskExecutor, ERC20Vault {
 
-    constructor(
-        address[] memory initialAdmins,
-        address[] memory initialCreators,
-        address[] memory initialApprovers,
-        address[] memory initialExecutors,
-        bool enableDeposit
-    ) TaskManager(
-        initialAdmins,
-        initialCreators,
-        initialApprovers,
-        initialExecutors,
-        enableDeposit
-    ) {}
+    function ERC20Transfer(
+        uint256 taskId,
+        address tokenContract,
+        address to,
+        uint256 amount
+    ) external
+      tryExecuteTaskAfterwards(taskId)
+    {
+        _ERC20Transfer(tokenContract, to, amount);
+    }
+
+    function ERC20Approve(
+        uint256 taskId,
+        address tokenContract,
+        address spender,
+        uint256 amount
+    ) external
+      tryExecuteTaskAfterwards(taskId)
+    {
+        _ERC20Approve(tokenContract, spender, amount);
+    }
 }

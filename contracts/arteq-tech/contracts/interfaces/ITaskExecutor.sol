@@ -18,22 +18,14 @@
 
 pragma solidity 0.8.1;
 
-import "./arteq-tech/contracts/TaskManager.sol";
-
+/// @author Kam Amini <kam@arteq.io>
+///
 /// @notice Use at your own risk
-contract QlindoTaskManager is TaskManager {
+interface ITaskExecutor {
 
-    constructor(
-        address[] memory initialAdmins,
-        address[] memory initialCreators,
-        address[] memory initialApprovers,
-        address[] memory initialExecutors,
-        bool enableDeposit
-    ) TaskManager(
-        initialAdmins,
-        initialCreators,
-        initialApprovers,
-        initialExecutors,
-        enableDeposit
-    ) {}
+    event TaskExecuted(address finalizer, address executor, uint256 taskId);
+
+    function executeTask(address executor, uint256 taskId) external;
+
+    function executeAdminTask(address executor, uint256 taskId) external;
 }

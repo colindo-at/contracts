@@ -20,11 +20,11 @@ pragma solidity 0.8.1;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@arteq-tech/contracts/abstract/task-managed/AccountLocker.sol";
-import "@arteq-tech/contracts/abstract/task-managed/BatchTransferEnabled.sol";
-import "@arteq-tech/contracts/abstract/task-managed/TaskManagedERC20VaultEnabled.sol";
-import "@arteq-tech/contracts/abstract/task-managed/TaskManagedERC721VaultEnabled.sol";
-import "@arteq-tech/contracts/abstract/task-managed/TaskManagedERC1155VaultEnabled.sol";
+import "./arteq-tech/contracts/abstract/task-managed/AccountLocker.sol";
+import "./arteq-tech/contracts/abstract/task-managed/BatchTransferEnabled.sol";
+import "./arteq-tech/contracts/abstract/task-managed/TaskManagedERC20VaultEnabled.sol";
+import "./arteq-tech/contracts/abstract/task-managed/TaskManagedERC721VaultEnabled.sol";
+import "./arteq-tech/contracts/abstract/task-managed/TaskManagedERC1155VaultEnabled.sol";
 
 /// @notice Use at your own risk
 contract QLINDO is
