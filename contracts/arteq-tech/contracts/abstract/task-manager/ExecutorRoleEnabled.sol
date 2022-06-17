@@ -32,11 +32,6 @@ abstract contract ExecutorRoleEnabled is AdminRoleEnabled {
     event ExecutorAdded(address account);
     event ExecutorRemoved(address account);
 
-    modifier onlyExecutor() {
-        require(_isExecutor(msg.sender), "ExecutorRoleEnabled: not an executor account");
-        _;
-    }
-
     modifier mustBeExecutor(address account) {
         require(_isExecutor(account), "ExecutorRoleEnabled: not an executor account");
         _;

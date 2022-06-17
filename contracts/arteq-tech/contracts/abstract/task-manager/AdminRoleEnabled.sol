@@ -25,8 +25,8 @@ import "./TaskManaged.sol";
 /// @notice Use at your own risk
 abstract contract AdminRoleEnabled is TaskManaged {
 
-    uint public MAX_NR_OF_ADMINS = 10;
-    uint public MIN_NR_OF_ADMINS = 4;
+    uint public constant MAX_NR_OF_ADMINS = 10;
+    uint public constant MIN_NR_OF_ADMINS = 4;
 
     mapping (address => bool) private _admins;
     uint internal _nrOfAdmins;
@@ -41,14 +41,6 @@ abstract contract AdminRoleEnabled is TaskManaged {
 
     constructor() {
         _nrOfAdmins = 0;
-    }
-
-    function minNrOfAdmins() external view returns (uint) {
-        return MIN_NR_OF_ADMINS;
-    }
-
-    function maxNrOfAdmins() external view returns (uint) {
-        return MAX_NR_OF_ADMINS;
     }
 
     function isAdmin(address account) external view
